@@ -1,0 +1,23 @@
+SELECT s.id as 'Session ID',s.programename as 'Session Name',
+s.location as 'Session Location',
+s.venue as 'Session Venue',
+s.room as 'Session Room',
+CONVERT_TZ(DATE_FORMAT(FROM_UNIXTIME(min(mdl_classroom_sessions_dates.timestart)),'%Y-%m-%d %H:%i'),'+00:00','+9:30') AS StartDate,
+CONVERT_TZ(DATE_FORMAT(FROM_UNIXTIME(max(mdl_classroom_sessions_dates.timefinish)),'%Y-%m-%d %H:%i'),'+00:00','+9:30') AS EndDate,
+s.trainingtype as 'Training Type',
+s.trainingsource as 'Training Source',
+round((s.duration/60))as 'Duration(Hours)',
+mdl_user.username as PortalID,
+concat(mdl_user.firstname,' ',mdl_user.lastname) as Name,
+mdl_user.grade as Grade,
+mdl_user.country as Country,
+mdl_user.source as 'Legacy Company',
+mdl_user.bu as BU,
+mdl_user.ru as RU,
+mdl_user.email as 'Email'
+from mdl_classroom_sessions s
+join mdl_classroom_sessions_dates on s.id=mdl_classroom_sessions_dates.sessionid and s.datetimeknown=1 and s.status='Completed'
+join mdl_classroom on mdl_classroom.id=s.classroom
+join mdl_classroom_submissions on mdl_classroom_submissions.sessionid = s.id and mdl_classroom_submissions.attend=1
+join mdl_user on mdl_user.id=mdl_classroom_submissions.userid
+group by s.id,mdl_user.id

@@ -1,0 +1,234 @@
+ <script language="javascript" src="calendar/calendar.js"></script> 
+<script language="JavaScript" type="text/javascript">
+//<![CDATA[
+
+function getobject(objid) {
+    if (document.getElementById) {
+        return document.getElementById(objid);
+    } else if (window[objid]) {
+        return window[objid];
+    }
+    return null;
+}
+
+var dates_hidden = <?php echo($form->datetimeknown) ? 'false' : 'true'; ?>;
+
+function hide_dates() {
+    if (!dates_hidden) {
+        var dates_row = getobject("dates");
+        dates_row.style.display = "none";
+        var adddate_row = getobject("adddate");
+        adddate_row.style.display = "none";
+        dates_hidden = true;
+    }
+}
+function show_dates() {
+    if (dates_hidden) {
+        var dates_row = getobject("dates");
+        dates_row.style.display = "";
+        var adddate_row = getobject("adddate");
+        adddate_row.style.display = "";
+        dates_hidden = false;
+    }
+}
+
+var nextday = <?php echo $nbdays; ?>; // id of the next day to be added
+var nbdays = <?php echo $nbdays; ?>; // current nb of days shown
+
+function add_day() {
+    var alldates = getobject('alldates');
+    var datetemplate = getobject('datetemplate');
+
+    var row = alldates.insertRow(-1);
+    row.id = 'day_' + nextday;
+    var cell = row.insertCell(-1);
+    cell.innerHTML = datetemplate.innerHTML;
+
+    nextday = nextday + 1;
+    nbdays = nbdays + 1;
+}
+
+function remove_day(node) {
+    if (nbdays > 1) {
+        var tdnode = node.parentNode;
+        var trnode = tdnode.parentNode;
+        var tablenode = trnode.parentNode;
+        var outertdnode = tablenode.parentNode;
+        var outertrnode = outertdnode.parentNode;
+        outertrnode.innerHTML = '';
+        nbdays = nbdays - 1;
+    }
+}
+
+
+
+//]]>
+</script>
+<form method="post" name ="addSession" action="sessionsUser.php?f=<?php echo $classroom->id; if($d) echo "&amp;d=1";?>">
+<div>
+<input type="hidden" name="id" value="<?php echo $id; ?>" />
+<input type="hidden" name="sesskey" value="<?php echo $USER->sesskey; ?>" />
+<input type="hidden" name="f" value="<?php echo $f; ?>" />
+<input type="hidden" name="s" value="<?php echo $s; ?>" />
+<input type="hidden" name="action" value="1" />
+
+<table cellpadding="5">
+<?php
+if($c) {
+?>
+<tr valign="top">
+    <td align="right"><b><?php print_string('classroom', 'classroom') ?>:</b></td>
+    <td>
+<?php
+    $choices = classroom_get_classroom_menu();
+    if (!empty($choices)) {
+        choose_from_menu ($choices, 'classroom', $form->classroom, '');
+    }
+?>
+    </td>
+</tr>
+<?php
+}
+
+?>
+<tr valign="top">
+    <td align="right"><b>Training Program Name:</b></td>
+    <td><input type="text"  name="programename" size="60" value="<?php p($form->programename) ?>" /><?php if (isset($err['programename'])) formerr($err['programename']); ?></td>
+</tr>
+<?php
+
+
+?>
+
+<tr valign="top">
+ <td align="right"><b><?php print_string('location', 'classroom') ?>:</b></td>
+<td>
+ <?php 
+$choices = session_get_location();
+
+if($session->location ==null){
+if (!empty($choices)) {
+    choose_from_menu($choices, 'location', $form->location,'',$script);
+	}
+}
+else{
+if (!empty($choices)) {
+    choose_from_menu($choices, 'location', $session->location,'',$script);
+	}
+	}
+	
+?>
+
+</td>
+</tr>
+ <tr>
+    <td align="right"><b><?php print_string('venue', 'classroom') ?>:</b></td>
+
+<td><input type="text"  name="venue" size="30" value="<?php p($form->venue) ?>" /></td>
+</tr>
+  </tr>
+
+
+
+<tr valign="top" id="dates" >
+    <td align="right"><b><?php print_string('sessiondatetime', 'classroom') ?>:</b></td>
+    <td>
+      <table id="alldates" border="0">
+
+<?php
+  // $nbdays is the number of days which are initially visible
+  for ($i = 0; $i < $nbdays; $i++) {
+?>
+      <tr id="day_<?php echo $i ?>">
+        <td>
+          <table border="0">
+            <tr valign="top">
+
+                <td><?php print_date_selector('sessday[]', 'sessmon[]', 'sessyr[]', $sessiondate[$i]); ?></td>
+           
+
+                <td>From: <?php print_time_selector('starthr[]', 'startmin[]', $datetimestart[$i]); ?></td>
+
+                <td>To: <?php print_time_selector('endhr[]', 'endmin[]', $datetimefinish[$i]); ?>
+                </td>
+				<td><button type="button" title="Remove the date" style="border-style:none;background-color:#ffffff" onclick="remove_day(this);"><img src="icons\minus.jpg" alt="Remove the date" /></button>
+                </td>
+				<td align="right" id="add_a_date_link"><button title = "Add a new date" style="border-style:none;background-color:#ffffff" type="button" onclick="add_day();"><img src="icons\plus.jpg" alt="Add a new date" /></button>
+  </td>
+
+          </table>
+        </td>
+      </tr>
+<?php
+  }
+?>
+      </table>
+    </td>
+</tr>
+
+<tr id="adddate" >
+  <td></td>
+  
+</tr>
+<tr valign="top">
+    <td align="right"><b>Trainer (Portal ID):</b></td>
+    <td><input title="Enter trainer portal id" type="text" name="trainer" size="10" value="<?php p($form->trainer) ?>"
+?>
+    </td>
+</tr>
+<tr valign="top">
+    <td align="right"><b>No of Attendees:</b></td>
+    <td><input type="text" name="capacity" size="6" value="<?php p($form->capacity) ?>"
+?>
+    </td>
+</tr>
+<tr valign="top">
+    <td align="right"><b>Total Duration (minutes):</b></td>
+    <td><input value="<?php p($form->duration) ?>" title="Enter duration in minutes" type="text" name="duration" size="6"   onblur="showerrorinternal(this.value)"/><?php if (isset($err['duration'])) formerr($err['duration']); ?>
+	<span id="durationexternal" style="color:red;"></span></td>
+</tr>
+
+
+
+
+<tr valign="top">
+    <td align="right"><b>Summary:</b></td>
+    <td><textarea name="details" rows="8" cols="65"><?php p($form->details) ?></textarea></td>
+</tr>
+
+
+
+<tr>
+    <td colspan="2" align="right">
+        <input type="image" src="icons\next.jpg" value="Next" />
+      <!--  <input type="submit" name="cancel" value="<?php print_string('cancel') ?>" /> -->
+    </td>
+</tr>
+</table>
+</div>
+<div id="content"></div>
+<div style="display: none" id="datetemplate">
+
+		            <table border="0">
+            <tr valign="top">
+
+                <td><?php print_date_selector('sessday[]', 'sessmon[]', 'sessyr[]', time()); ?></td>
+           
+
+                <td>From: <?php print_time_selector('starthr[]', 'startmin[]', time()); ?></td>
+
+                <td>To: <?php print_time_selector('endhr[]', 'endmin[]', time()); ?>
+                </td>
+				<td><button type="button" title="Remove the date" style="border-style:none;background-color:#ffffff" onclick="remove_day(this);"><img src="icons\minus.jpg" alt="Remove the date" /></button>
+                </td>
+				<td align="right" id="add_a_date_link"><button title = "Add a new date" style="border-style:none;background-color:#ffffff" type="button" onclick="add_day();"><img src="icons\plus.jpg" alt="Add a new date" /></button>
+  </td>
+
+          </table>
+        </td>
+      </tr>
+
+      </table>
+</div>
+
+</form>

@@ -1,0 +1,430 @@
+
+
+<meta http-equiv="X-UA-Compatible" content="IE=9">
+
+ <link href="upload/style.css" rel="stylesheet" type="text/css" />
+
+<script language="javascript" src="calendar/calendar.js"></script>
+<script language="JavaScript" type="text/javascript">
+
+//<![CDATA[
+
+function getobject(objid) {
+function getobject(objid) {
+    if (document.getElementById) {
+        return document.getElementById(objid);
+    } else if (window[objid]) {
+        return window[objid];
+    }
+    return null;
+}
+
+var dates_hidden = <?php echo($form->datetimeknown) ? 'false' : 'true'; ?>;
+
+function hide_dates() {
+    if (!dates_hidden) {
+        var dates_row = getobject("dates");
+        dates_row.style.display = "none";
+        var adddate_row = getobject("adddate");
+        adddate_row.style.display = "none";
+        dates_hidden = true;
+    }
+}
+function show_dates() {
+    if (dates_hidden) {
+        var dates_row = getobject("dates");
+        dates_row.style.display = "";
+        var adddate_row = getobject("adddate");
+        adddate_row.style.display = "";
+        dates_hidden = false;
+    }
+}
+
+var nextday = <?php echo $nbdays; ?>; // id of the next day to be added
+var nbdays = <?php echo $nbdays; ?>; // current nb of days shown
+
+function add_day() {
+    var alldates = getobject('alldates');
+    var datetemplate = getobject('datetemplate');
+
+    var row = alldates.insertRow(-1);
+    row.id = 'day_' + nextday;
+    var cell = row.insertCell(-1);
+    cell.innerHTML = datetemplate.innerHTML;
+
+    nextday = nextday + 1;
+    nbdays = nbdays + 1;
+}
+
+function remove_day(node) {
+    if (nbdays > 1) {
+        var tdnode = node.parentNode;
+        var trnode = tdnode.parentNode;
+        var tablenode = trnode.parentNode;
+        var outertdnode = tablenode.parentNode;
+        var outertrnode = outertdnode.parentNode;
+        outertrnode.innerHTML = '';
+        nbdays = nbdays - 1;
+    }
+}
+
+
+
+//]]>
+</script>
+<script language="javascript" type="text/javascript">
+<!--
+function popitup(url) {
+	newwindow=window.open(url,'name','height=400,width=800');
+	if (window.focus) {newwindow.focus()}
+	return false;
+}
+
+// -->
+</script>
+<?php if($s)
+{
+?>
+<div id="theFormBlank">
+<table >
+
+ <tr>
+  <td  rowspan=2 style='padding:.1in .1in .1in .1in'>
+  <p  align=center style='margin-bottom:0in;margin-bottom:.0001pt;
+  text-align:center;line-height:normal'><span>
+  <?php echo '<a href="'.$CFG->wwwroot.'/user/view.php?id='.$USER->id.'&amp;course='.$COURSE->id.'"><img height="120" width="120" src="'.$CFG->wwwroot.'/user/pix.php?file=/'.$USER->id.'/f1.jpg" width="80px" height="80px" title="'.$USER->firstname.' '.$USER->lastname.'" alt="'.$USER->firstname.' '.$USER->lastname.'" /></a>'; ?>
+  
+  </span></p>
+  </td>
+  <td  valign=top style='width:239.4pt;padding:.1in .1in .0in .0in'>
+
+  <p ><span style='font-size:12.0pt;font-family:"Arial","sans-serif";color:#17375E'><?php echo $form->programename;?>
+  </span><br/>
+  <span style='font-size:9.0pt;color:#4EA7B5'><?php echo $form->location.' / '.$form->venue; ?> <br/></span>
+  <span style='font-size:10.0pt;color:#4EA7B5'>Date: <?php echo gmdate("Y-m-d",$form->sessiondates[0]->timestart) .' - '.gmdate("Y-m-d",$form->sessiondates[0]->timefinish); ?></span> <br/><span style='text-align:right;font-size:10.0pt;color:#F27F6F'><i>Duration: <?php echo $form->duration;?> Hours</i></span>
+  </p>
+  </td>
+
+ </tr>
+ <tr >
+  <td rowspan=2  valign=top style='width:350.4pt;
+  height:28.25pt'>
+  <p  style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'><i ><span style='font-family:"Arial","sans-serif";
+  color:#E46C0A'></span></i><i><span style='font-family:"Arial","sans-serif"'></span></i></p>
+  <p style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'><span></span></p>
+
+    <p style='margin-bottom:0in;margin-bottom:.0001pt;
+    line-height:normal'><i><span style='font-size:14.0pt;font-family:"Arial","sans-serif";
+    color:#E46C0A'>Thank you ! </span></i><span
+    style='font-size:12.0pt;font-family:"Arial","sans-serif";color:#558ED5'>for
+    adding the training event. Our training administrators will evaluate your
+    proof of completion and credit your training history. You can add more training events below or exit to home page.</span></p>
+    <p align=right style='margin-bottom:0in;margin-bottom:.0001pt;
+    text-align:right;line-height:normal'><i><span style='font-size:10.0pt;
+    font-family:"Arial Narrow","sans-serif";color:#93CDDD'>For any queries
+    please contact <a href="mailto:Training.Helpdesk@nttdata.com"><span
+    style='color:#6666FF'>Training.Helpdesk@nttdata.com</span></a></span></i></p>
+    <p  align=right style='margin-bottom:0in;margin-bottom:.0001pt;
+    text-align:right;line-height:normal'><i><span style='font-size:10.0pt;
+    font-family:"Arial Narrow","sans-serif";color:#93CDDD'>
+	
+
+	<a href="<?php echo $CFG->wwwroot; ?>"><img border="0" src="icons\done.png" alt="Exit" ></a>
+
+	
+	</span></i></p>
+
+  
+  </td>
+
+ </tr>
+ <tr >
+  <td  valign=top style='width:220.4pt;padding:.1in .1in .1in .1in;
+  height:9.0pt'>
+  <p  align=center style='margin-bottom:0in;margin-bottom:.0001pt;
+  text-align:center;line-height:normal'><span style='font-size:10.0pt'>  </span><span style='font-size:10.0pt;mso-fareast-font-family:
+  "Arial Unicode MS"'></span></p>
+  </td>
+
+ </tr>
+
+ </table>
+
+</div>
+<?php
+}
+else
+{
+?>
+<div id="theFormBlank">
+<table  border=0 cellspacing=0 cellpadding=0
+ style='border-collapse:collapse;border:none'>
+ <tr >
+  <td  rowspan=2 style='width:220.4pt;padding:.1in .1in .1in .1in'>
+  <p class=MsoNormal align=center style='margin-bottom:0in;margin-bottom:.0001pt;
+  text-align:center;line-height:normal'><span>
+  <?php echo '<a href="'.$CFG->wwwroot.'/user/view.php?id='.$USER->id.'&amp;course='.$COURSE->id.'"><img height="120" width="120" src="'.$CFG->wwwroot.'/user/pix.php?file=/'.$USER->id.'/f1.jpg" width="80px" height="80px" title="'.$USER->firstname.' '.$USER->lastname.'" alt="'.$USER->firstname.' '.$USER->lastname.'" /></a>'; ?>
+  
+  </span></p>
+  </td>
+  <td  valign=top style='width:239.4pt;padding:.1in .1in .0in .0in'>
+  
+  <p class=MsoNormal align="justify" >
+  <span style='font-size:12.0pt;font-family:"Arial","sans-serif";color:#F2AA61'><i>Hi <?php echo $USER->firstname; ?></i><br/></span>
+  <span style='font-size:10.0pt;font-family:"Arial","sans-serif";color:#17375E'>
+  Please make sure to get proper credit for your external development events in your training history.  Simply fill out the training details requested below and attach proof of completion.  The training administration team will validate the entry and ensure that your history is updated.
+  </span>
+</p>
+<p align="right">
+<a href="<?php echo $CFG->wwwroot;?>/mod/swf/view.php?id=12269" target="_blank"><img src="icons/tour.png" alt="Take a tour" title="See tutorial video" height="35" width="100"></a>
+</p>
+  </td>
+
+ </tr>
+
+
+
+ </table>
+
+</div>
+<?php
+}
+?>
+
+
+<form method="post" id="FileUploader" name ="addSession" action="sessionsRegister.php?f=<?php echo $classroom->id; if($d) echo "&amp;d=1";?>">
+<div id="theForm">
+<input type="hidden" name="id" value="<?php echo $id; ?>" />
+<input type="hidden" name="sesskey" value="<?php echo $USER->sesskey; ?>" />
+<input type="hidden" name="f" value="<?php echo $f; ?>" />
+<input type="hidden" name="s" value="<?php echo $s; ?>" />
+<input type="hidden" name="action" value="1" />
+
+<table align="center" cellpadding="3">
+<?php
+require_once('calendar/classes/tc_calendar.php');
+if($c) {
+?>
+<tr valign="top">
+    <td align="right"><b><?php print_string('classroom', 'classroom') ?>:</b></td>
+    <td>
+<?php
+    $choices = classroom_get_classroom_menu();
+    if (!empty($choices)) {
+        choose_from_menu ($choices, 'classroom', $form->classroom, '');
+    }
+?>
+    </td>
+</tr>
+<?php
+}
+
+?>
+<tr valign="top">
+    <td align="right">
+	<label>Training Name<span class="small">Name of the event you attended</span></label></td>
+    <td align="right">
+	<a href="#" class="tooltip" align="right">
+	<input type="text"  name="programename" size="60" maxlength="60" value="<?php echo isset($_POST['programename']) ? $_POST['programename'] : '' ?>" /><?php if (isset($err['programename'])) formerr($err['programename']); ?>
+			<span align="right">
+			<p align="left">Enter the complete name of the training event.</p>
+			<img class="callout" src="icons/callout.gif" />       
+			</span>
+			</a>
+	</td>
+</tr>
+
+<tr valign="top">
+ <td align="right">
+<label>Country<span class="small">Country where the training was held</span></label>
+
+
+ </td>
+<td align="left">
+<a href="#" class="tooltip">
+<select name="location" value="<?php echo isset($_POST['location']) ? $_POST['location'] : '' ?>">
+ 
+<?php include 'countries.php' ?>
+ 
+</select>
+<span>
+			<p align="left">Select the country where the training was held.</p>
+			<img class="callout" src="icons/callout.gif" />       
+			</span>
+			</a>
+</td>
+</tr>
+
+
+ <tr>
+    <td align="right">
+	<label>Venue<span class="small">Venue where the training was held</span></label>
+			
+	</td>
+
+<td>
+<a href="#" class="tooltip">
+<input type="text"  name="venue" size="30" maxlength="30" value="<?php echo isset($_POST['venue']) ? $_POST['venue'] : '' ?>" />
+			<span>
+			<p align="left">Enter the city or venue where the training was held</p>
+			<img class="callout" src="icons/callout.gif" />       
+			</span>
+</a>
+</td>
+</tr>
+  </tr>
+
+
+
+<tr valign="top" id="dates" >
+    <td align="right">
+	<label>Date<span class="small">Date of the training event</span></label>
+	</td>
+    <td>
+      
+	  <div style="float: left;">
+                <div style="float: left; padding-right: 3px; line-height: 18px;">&nbsp;&nbsp;Start Date:  </div>
+                <div style="float: left;">
+                  <?php
+						$thisweek = date('W');
+						$thisyear = date('Y');
+
+						$dayTimes = getDaysInWeek($thisweek, $thisyear);
+						//----------------------------------------
+
+						$date1 = date('Y-m-d', $dayTimes[0]);
+						$date2 = date('Y-m-d');
+
+						function getDaysInWeek ($weekNumber, $year, $dayStart = 1) {
+						  // Count from '0104' because January 4th is always in week 1
+						  // (according to ISO 8601).
+						  $time = strtotime($year . '0104 +' . ($weekNumber - 1).' weeks');
+						  // Get the time of the first day of the week
+						  $dayTime = strtotime('-' . (date('w', $time) - $dayStart) . ' days', $time);
+						  // Get the times of days 0 -> 6
+						  $dayTimes = array ();
+						  for ($i = 0; $i < 7; ++$i) {
+							$dayTimes[] = strtotime('+' . $i . ' days', $dayTime);
+						  }
+						  // Return timestamps for mon-sun.
+						  return $dayTimes;
+						}
+
+
+					  $myCalendar = new tc_calendar("date3", true, false);
+					  $myCalendar->setIcon("calendar/images/iconCalendar.gif");
+					  $myCalendar->setDate(date('d', strtotime($date1)), date('m', strtotime($date1)), date('Y', strtotime($date1)));
+					  $myCalendar->setPath("calendar/");
+					  $myCalendar->setYearInterval(1990, date('Y', strtotime($date1)));
+					  //$myCalendar->dateAllow('2009-02-20', "", false);
+					  $myCalendar->setAlignment('left', 'bottom');
+					  $myCalendar->setDatePair('date3', 'date4', $date2);
+					  //$myCalendar->setSpecificDate(array("2011-04-01", "2011-04-04", "2011-12-25"), 0, 'year');
+					  $myCalendar->writeScript();
+					  ?>
+                </div>
+              </div>
+              <div style="float: left;">
+                <div style="float: left; padding-left: 3px; padding-right: 3px; line-height: 18px;">&nbsp-&nbsp;&nbsp;End Date:  </div>
+                <div style="float: left;">
+                  <?php
+					  $myCalendar = new tc_calendar("date4", true, false);
+					  $myCalendar->setIcon("calendar/images/iconCalendar.gif");
+					  $myCalendar->setDate(date('d', strtotime($date2)), date('m', strtotime($date2)), date('Y', strtotime($date2)));
+					  $myCalendar->setPath("calendar/");
+					  $myCalendar->setYearInterval(1990, date('Y', strtotime($date1)));
+					  //$myCalendar->dateAllow("", '2009-11-03', false);
+					  $myCalendar->setAlignment('left', 'bottom');
+					  $myCalendar->setDatePair('date3', 'date4', $date1);
+					  //$myCalendar->setSpecificDate(array("2011-04-01", "2011-04-04", "2011-12-25"), 0, 'year');
+					  $myCalendar->writeScript();
+					  ?>
+                </div>
+              </div>
+	  
+	  
+	  
+	  
+    </td>
+</tr>
+
+<tr id="adddate" >
+  <td></td>
+  
+</tr>
+
+
+<tr valign="top" align="left">
+    <td align="left">
+	<label>Duration<span class="small">Total duration of the training</span></label>
+	</td>
+    <td align="left">
+<table>
+<tr align="left">
+<td align="left"> &nbsp;&nbsp; Hours<input class="small" value="<?php echo isset($_POST['durationh']) ? $_POST['durationh'] : '' ?>" title="Enter duration in hours" type="text" name="durationh" id="durationh" size="3" maxlength="3" /><?php if (isset($err['duration'])) formerr($err['duration']); ?></td>
+<td align="left"> &nbsp;&nbsp; Minutes<input class="small" value="<?php echo isset($_POST['durationm']) ? $_POST['durationm'] : '' ?>" title="Enter duration in minutes" type="text" name="durationm" size="3" maxlength="3" onblur="showerror(this.value)" /><?php if (isset($err['duration'])) formerr($err['duration']); ?></td>
+<td><span id="durationm" style="color:red;"></span></td>
+</tr>
+</table>
+	
+	
+	</td>
+</tr>
+
+<tr valign="top">
+    <td align="right">
+	<label>Training Type<span class="small">The type of training attended</span></label>
+	</td>
+    <td>
+
+		<select name="trainingType" value="<?php echo isset($_POST['trainingType']) ? $_POST['trainingType'] : '' ?>">
+		<option value="">Select</option>
+		<option value="Face to Face">Face to Face</option>
+		<option value="Mentoring">Mentoring</option>
+		<option value="Webinar">Webinar</option>
+		<option value="Conference">Conference</option>
+		<option value="Seminar">Seminar</option>
+		<option value="Workshop">Workshop</option>
+		<option value="Others">Others</option>
+		</select>	
+	</td>
+</tr>
+
+<table>
+<tr>
+<iframe src="upload/indexUpload.php" width="750" height="320" frameborder="0">
+</iframe>
+</tr>
+</table>
+<table align="center" cellpadding="3">
+<tr valign="top">
+    <td align="right">
+	<label>Summary<span class="small">Description of the training event</span></label>
+	</td>
+    <td>
+	<a href="#" class="tooltip">
+	<textarea name="details" value="<?php echo isset($_POST['details']) ? $_POST['details'] : '' ?>" rows="8" cols="65" ><?php ($form->details) ?></textarea>
+			<span>
+			<p align="left">Enter brief description of the training also include objectives if any.</p>
+			<img class="callout" src="icons/callout.gif" />       
+			</span>
+	</a>
+	</td>
+</tr>
+
+<tr>
+
+    <td colspan="2" align="right">
+	<button type="reset" class="red-button" >Clear</button>
+	<button type="submit" class="green-button" id="uploadButton">Submit</button>
+
+    </td>
+</tr>
+</table>
+</table>
+</div>
+
+
+</form>

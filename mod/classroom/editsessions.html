@@ -1,0 +1,435 @@
+<script language="JavaScript" type="text/javascript">
+//<![CDATA[
+
+function getobject(objid) {
+    if (document.getElementById) {
+        return document.getElementById(objid);
+    } else if (window[objid]) {
+        return window[objid];
+    }
+    return null;
+}
+
+var dates_hidden = <?php echo($form->datetimeknown) ? 'false' : 'true'; ?>;
+
+function hide_dates() {
+    if (!dates_hidden) {
+        var dates_row = getobject("dates");
+        dates_row.style.display = "none";
+        var adddate_row = getobject("adddate");
+        adddate_row.style.display = "none";
+        dates_hidden = true;
+    }
+}
+function show_dates() {
+    if (dates_hidden) {
+        var dates_row = getobject("dates");
+        dates_row.style.display = "";
+        var adddate_row = getobject("adddate");
+        adddate_row.style.display = "";
+        dates_hidden = false;
+    }
+}
+
+var nextday = <?php echo $nbdays; ?>; // id of the next day to be added
+var nbdays = <?php echo $nbdays; ?>; // current nb of days shown
+
+function add_day() {
+    var alldates = getobject('alldates');
+    var datetemplate = getobject('datetemplate');
+
+    var row = alldates.insertRow(-1);
+    row.id = 'day_' + nextday;
+    var cell = row.insertCell(-1);
+    cell.innerHTML = datetemplate.innerHTML;
+
+    nextday = nextday + 1;
+    nbdays = nbdays + 1;
+}
+
+function remove_day(node) {
+    if (nbdays > 1) {
+        var tdnode = node.parentNode;
+        var trnode = tdnode.parentNode;
+        var tablenode = trnode.parentNode;
+        var outertdnode = tablenode.parentNode;
+        var outertrnode = outertdnode.parentNode;
+        outertrnode.innerHTML = '';
+        nbdays = nbdays - 1;
+    }
+}
+function SubmitForm(){
+var textbox = document.getElementById('sub'); 
+textbox.value = 'Submit Form'; 
+//document.addSession.submit();
+}
+
+//srinu added for tef
+$(document).ready(function(){
+$('#externaltraining').click(function() {
+if ($(this).is(':checked')) {
+$(this).val('1');
+}
+else
+{
+$(this).val('0');
+}
+});
+});
+
+//]]>
+</script>
+<form method="post" action="<?php if($session->sub!=null){echo "sessions.php?f=".$classroom->id; if($d) echo "&amp;d=1";} else {echo "sessions.php?s=".$session->id."&amp;ed=1";}?>">
+<div>
+<input type="hidden" name="id" value="<?php echo $id; ?>" />
+<input type="hidden" name="sesskey" value="<?php echo $USER->sesskey; ?>" />
+<input type="hidden" name="f" value="<?php echo $f; ?>" />
+<input type="hidden" name="s" value="<?php echo $s; ?>" />
+<input type="hidden" name="c" value="<?php echo $c; ?>" />
+<input type="hidden" name="d" value="<?php echo $d; ?>" />
+<input type="hidden" name="action" value="1" />
+<input type="hidden" name="sub" />
+
+<table cellpadding="5">
+<?php
+if($c) {
+?>
+<tr valign="top">
+    <td align="right"><b><?php print_string('classroom', 'classroom') ?>:</b></td>
+    <td>
+<?php
+    $choices = classroom_get_classroom_menu();
+    if (!empty($choices)) {
+        choose_from_menu ($choices, 'classroom', $form->classroom, '');
+    }
+?>
+    </td>
+</tr>
+<?php
+}
+if ($course->id>1)
+{
+
+?>
+<tr valign="top">
+    <td align="right"><b><?php print_string('programename', 'classroom') ?>:</b></td>
+    <td><input type="text" name="programename" size="30" value="<?php p($form->programename) ?>" /><?php helpbutton('programename', get_string('programename', 'classroom'), 'classroom'); ?><?php if (isset($err['programename'])) formerr($err['programename']); ?></td>
+</tr>
+<?php
+}
+else
+{
+
+?>
+<tr valign="top">
+    <td align="right"><b><?php print_string('programename', 'classroom') ?>:</b></td>
+    <td><input type="text"  name="programename" size="30" value="<?php p($form->programename) ?>" /><?php helpbutton('programename', get_string('programename', 'classroom'), 'classroom'); ?><?php if (isset($err['programename'])) formerr($err['programename']); ?></td>
+</tr>
+<?php
+}
+?>
+
+<tr valign="top">
+ <td align="right"><b><?php print_string('location', 'classroom') ?>:</b></td>
+<td>
+ <?php 
+$choices = session_get_location();
+$script = "this.form.submit()";
+if($session->location ==null){
+if (!empty($choices)) {
+    choose_from_menu($choices, 'location', $form->location,'',$script);
+	}
+}
+else{
+if (!empty($choices)) {
+    choose_from_menu($choices, 'location', $session->location,'',$script);
+	}
+	}
+?>
+</td>
+</tr>
+<tr valign="top">
+    <td align="right"><b><?php print_string('venue', 'classroom') ?>:</b></td>
+<td>
+ <?php 
+ 
+if($session->location == null){
+$choices = session_get_venue_forLocation($form->location);
+if (!empty($choices)) {
+    choose_from_menu($choices, 'venue', $form->venue,'',$script);
+	}
+}
+else{
+$choices = session_get_venue_forLocation($session->location);
+if($session->venue==null){
+if (!empty($choices)) {
+    choose_from_menu($choices, 'venue', $form->venue,'',$script);
+	}
+}
+else{
+if (!empty($choices)) {
+    choose_from_menu($choices, 'venue', $session->venue,'',$script);
+	}
+}
+	}
+?>
+</td>
+</tr>
+<tr valign="top">
+    <td align="right"><b><?php print_string('room', 'classroom') ?>:</b></td>
+    <td>
+ <?php 
+if($session->venue == null){
+$choices = session_get_room_forVenue($form->venue);
+if (!empty($choices)) {
+    choose_from_menu($choices, 'room', $form->room, '');
+	}
+}
+else{
+$choices = session_get_room_forVenue($session->venue);
+if (!empty($choices)) {
+    choose_from_menu($choices, 'room', $form->room, '');
+	}
+}
+?>
+</td>
+</tr>
+<!-- srinu added for Training effectiveness feedback -->
+<tr valign="top">
+ <td align="right"><b><?php print_string('externaltraining', 'classroom') ?>:</b></td>
+    <td><input type="checkbox" name="externaltraining" id="externaltraining" size="6" maxlength="6" <?php if($form->externaltraining == 1){echo 'checked';} else{echo '';} ?>/>
+</td>
+</tr>
+<!-- srinu ended for Training effectiveness feedback -->
+<tr valign="top">
+    <td align="right"><b><?php print_string('sessiondatetimeknown', 'classroom') ?>:</b></td>
+    <td><span class="radiogroup datetimeknown">
+        <span class="radioelement datetimeknown rb0"><input name="datetimeknown" id="datetimeknown_yes" type="radio" value="1" <?php if ($form->datetimeknown) print 'checked="checked"'; ?> onclick="show_dates();"/> <label for="datetimeknown_yes"><?php print_string('yes'); ?></label></span>
+        <span class="radioelement datetimeknown rb1"><input name="datetimeknown" id="datetimeknown_no" type="radio" value="0" <?php if (!$form->datetimeknown) print 'checked="checked"'; ?> onclick="hide_dates();" /> <label for="datetimeknown_no"><?php print_string('no'); ?></label></span>
+    </span><?php helpbutton('sessiondatetimeknown', get_string('sessiondatetimeknown', 'classroom'), 'classroom'); ?></td>
+</tr>
+<tr valign="top" id="dates" style="<?php echo ($form->datetimeknown) ? 'display:' : 'display: none' ?>">
+    <td align="right"><b><?php print_string('sessiondatetime', 'classroom') ?>:</b></td>
+    <td>
+      <table id="alldates" border="0">
+
+<?php
+  // $nbdays is the number of days which are initially visible
+  for ($i = 0; $i < $nbdays; $i++) {
+?>
+      <tr id="day_<?php echo $i ?>">
+        <td>
+          <table border="0">
+            <tr valign="top">
+                <td align="right"><?php print_string('sessiondate', 'classroom') ?>:</td>
+                <td><?php print_date_selector('sessday[]', 'sessmon[]', 'sessyr[]', $sessiondate[$i]); ?><?php helpbutton('sessiondate', get_string('sessiondate', 'classroom'), 'classroom'); ?></td>
+            </tr>
+            <tr valign="top">
+                <td align="right"><?php print_string('timestart', 'classroom') ?>:</td>
+                <td><?php print_time_selector('starthr[]', 'startmin[]', $datetimestart[$i]); ?><?php helpbutton('timestart', get_string('timestart', 'classroom'), 'classroom'); ?></td>
+            </tr>
+            <tr valign="top">
+                <td align="right"><?php print_string('timefinish', 'classroom') ?>:</td>
+                <td><?php print_time_selector('endhr[]', 'endmin[]', $datetimefinish[$i]); ?>
+                    <?php helpbutton('timefinish', get_string('timefinish', 'classroom'), 'classroom'); ?>
+                    <?php print_spacer(1, 15, false, false); ?>
+                    <button type="button" onclick="remove_day(this);"><?php print_string('dateremove', 'classroom') ?></button>
+                </td>
+            </tr>
+            <tr><td><?php print_spacer(10, 1, false, false); ?></td></tr>
+          </table>
+        </td>
+      </tr>
+<?php
+  }
+?>
+      </table>
+    </td>
+</tr>
+
+<tr id="adddate" style="<?php echo ($form->datetimeknown) ? 'display:' : 'display: none' ?>">
+  <td></td>
+  <td align="right" id="add_a_date_link"><button type="button" onclick="add_day();"><?php print_string('dateadd', 'classroom') ?></button></td>
+</tr>
+
+<tr valign="top">
+    <td align="right"><b><?php print_string('capacity', 'classroom') ?>:</b></td>
+    <td><input type="text" name="capacity" size="6" value="<?php if($session->capacity == null){p($form->capacity);} else{p($session->capacity);} ?>" /><?php
+    helpbutton('capacity', get_string('capacity', 'classroom'), 'classroom');
+?>
+    </td>
+</tr>
+<tr valign="top">
+    <td align="right"><b><?php print_string('duration', 'classroom') ?>:</b></td>
+    <td><input type="text" name="duration" size="6" value="<?php if($session->duration == null){p($form->duration);} else {p($session->duration);} ?>" /><?php helpbutton('duration', get_string('duration', 'classroom'), 'classroom'); ?><?php if (isset($err['duration'])) formerr($err['duration']); ?></td>
+</tr>
+<tr valign="top">
+ <td align="right"><b><?php print_string('trainingtype', 'classroom') ?>:</b></td>
+<td>
+<?php 
+$choices = session_get_trainingtype();
+if (!empty($choices)) {
+    choose_from_menu($choices, 'trainingtype', $form->trainingtype, '');
+	}
+?>
+
+</td>
+</tr>
+
+<tr valign="top">
+ <td align="right"><b><?php print_string('trainingsource', 'classroom') ?>:</b></td>
+<td>
+<?php 
+$choices = session_get_trainingsource();
+if($session->trainingsource == null){
+if (!empty($choices)) {
+    choose_from_menu($choices, 'trainingsource', $form->trainingsource, '');
+	}
+}else{
+if (!empty($choices)) {
+    choose_from_menu($choices, 'trainingsource', $session->trainingsource, '');
+	}
+}
+?>
+
+</td>
+</tr>
+
+<tr valign="top">
+ <td align="right"><b><?php print_string('sessioncategory', 'classroom') ?>:</b></td>
+<td>
+<?php 
+$choices = session_get_category();
+if($session->sessioncategory==null){
+if (!empty($choices)) {
+    choose_from_menu($choices, 'sessioncategory', $form->sessioncategory, '');
+	}
+}else{
+if (!empty($choices)) {
+    choose_from_menu($choices, 'sessioncategory', $session->sessioncategory, '');
+	}
+}
+?>
+
+</td>
+</tr>
+
+<tr valign="top">
+ <td align="right"><b><?php print_string('requestor', 'classroom') ?>:</b></td>
+    <td><input type="text" name="requestor" size="6" maxlength="6" value="<?php if($session->requestor == null){p($form->requestor);} else {p($session->requestor);} ?>" />
+	<?php
+    helpbutton('requestor', get_string('requestor', 'classroom'));
+	?>
+</td>
+</tr>
+
+<tr valign="top">
+ <td align="right"><b><?php print_string('account', 'classroom') ?>:</b></td>
+<td>
+<?php 
+$choices = session_get_account();
+if($session->account==null){
+if (!empty($choices)) {
+    choose_from_menu($choices, 'account', $form->account, '');
+	}
+}else{
+if (!empty($choices)) {
+    choose_from_menu($choices, 'account', $session->account, '');
+	}
+}
+?>
+
+</td>
+</tr>
+
+<tr valign="top">
+ <td align="right"><b><?php print_string('feedbacktext', 'classroom') ?>:</b></td>
+<td>
+<?php 
+$choices = session_get_feedback($classroom->id);
+if($session->feedbackname==null){
+if (!empty($choices)) {
+    choose_from_menu($choices, 'feedbackname', $form->feedbackname, '');
+	}
+}else{
+if (!empty($choices)) {
+    choose_from_menu($choices, 'feedbackname', $session->feedbackname, '');
+	}
+}
+?>
+
+</td>
+</tr>
+
+
+<?php
+  if (!get_config(NULL, 'classroom_hidecost')) {
+?>
+<tr valign="top">
+    <td align="right"><b><?php print_string('normalcost', 'classroom') ?>:</b></td>
+    <td><input type="text" name="normalcost" size="6" value="<?php p($form->normalcost) ?>" /><?php helpbutton('normalcost', get_string('normalcost', 'classroom'), 'classroom'); ?><?php if (isset($err['normalcost'])) formerr($err['normalcost']); ?></td>
+</tr>
+<?php
+    if (!get_config(NULL, 'classroom_hidediscount')) {
+?>
+<tr valign="top">
+    <td align="right"><b><?php print_string('discountcost', 'classroom') ?>:</b></td>
+    <td><input type="text" name="discountcost" size="6" value="<?php p($form->discountcost) ?>" /><?php helpbutton('discountcost', get_string('discountcost', 'classroom'), 'classroom'); ?><?php if (isset($err['discountcost'])) formerr($err['discountcost']); ?> </td>
+</tr>
+
+
+<?php
+    }
+  }
+?>
+
+<tr valign="top">
+    <td align="right"><b><?php print_string('details', 'classroom') ?>:</b></td>
+    <td><textarea name="details" rows="10" cols="50"><?php if($session->details==null){p($form->details);}else{p($session->details);} ?></textarea><?php helpbutton('details', get_string('details', 'classroom'), 'classroom'); ?></td>
+</tr>
+<tr valign="top">
+    <td align="right"><b><?php print_string('reschedulereasonlabel', 'classroom') ?>:</b></td>
+    <td><textarea name="reschedulereason" rows="5" cols="50"><?php if($session->reschedulereason==null) {p($form->reschedulereason);} else{p($session->reschedulereason);} ?></textarea></td>
+</tr>
+<!-- Roy Philip: Updated 30-4-2012 -->
+<tr valign="top">
+    <td align="right"><b><?php print_string('sendnotification', 'classroom') ?>:</b></td>
+    <td><input type="checkbox" name="sendnotification" value="1" /> Send notification mail to attendees.<br /></td>
+</tr>
+
+
+
+<tr>
+    <td colspan="2" align="center">
+	
+        <input type="submit" value="<?php print_string('savechanges') ?>" onClick="SubmitForm();"/>
+        <input type="submit" name="cancel" value="<?php print_string('cancel') ?>" />
+    </td>
+</tr>
+</table>
+</div>
+
+<div style="display: none" id="datetemplate">
+          <table border="0">
+            <tr valign="top">
+                <td align="right"><?php print_string('sessiondate', 'classroom') ?>:</td>
+                <td><?php print_date_selector('sessday[]', 'sessmon[]', 'sessyr[]', time()); ?><?php helpbutton('sessiondate', get_string('sessiondate', 'classroom'), 'classroom'); ?></td>
+            </tr>
+            <tr valign="top">
+                <td align="right"><?php print_string('timestart', 'classroom') ?>:</td>
+                <td><?php print_time_selector('starthr[]', 'startmin[]', time()); ?><?php helpbutton('timestart', get_string('timestart', 'classroom'), 'classroom'); ?></td>
+            </tr>
+            <tr valign="top">
+                <td align="right"><?php print_string('timefinish', 'classroom') ?>:</td>
+                <td><?php print_time_selector('endhr[]', 'endmin[]', time()); ?>
+                    <?php helpbutton('timefinish', get_string('timefinish', 'classroom'), 'classroom'); ?>
+                    <?php print_spacer(1, 15, false, false); ?>
+                    <button type="button" onclick="remove_day(this);"><?php print_string('dateremove', 'classroom') ?></button>
+                </td>
+            </tr>
+            <tr><td><?php print_spacer(10, 1, false, false); ?></td></tr>
+          </table>
+</div>
+
+</form>
+

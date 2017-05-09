@@ -1,0 +1,53 @@
+/**
+ * *************************************************************************
+ * *                       CCI - Course Search                          **
+ * *************************************************************************
+ * @package     block                                                   **
+ * @subpackage  cci coursesearch                                        **
+ * @name        CCI Course Search                                       **
+ * @copyright   CCI                                                 	**
+ * @author      CCI                                            			**
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later  **
+ * *************************************************************************
+ * ************************************************************************ */
+
+.block_cci_course_search .searchform {text-align: center;}
+.block_cci_course_search .searchform img {vertical-align: middle;}
+.block_cci_course_search .searchform img.resize {width: 1em;height: 1.1em;}
+.block_cci_course_search .invisiblefieldset {display: block;}
+
+.block_cci_course_search_result_list
+{
+    list-style-type: none;
+}
+body#page-blocks-cci_globalsearch-results .categoryname{
+	width: 30%;
+    float: right;
+    text-align: right;
+}
+body#page-blocks-cci_globalsearch-results .tagname{
+	width: 30%;
+    float: right;
+    text-align: right;
+}
+body#page-blocks-cci_globalsearch-results .crsname{
+	width: 30%;
+    float: right;
+    text-align: right;
+    line-height: 0px;
+    margin-top: -5px;
+}
+body#page-blocks-cci_globalsearch-results .modinfo h5{
+	width: 70%;
+	position: absolute;
+	margin: 0px;
+}
+body#page-blocks-cci_globalsearch-results .modbox{
+	margin-bottom: 1px!important;
+	padding:0px!important;
+}
+body#page-blocks-cci_globalsearch-results .coursebox{
+	margin-bottom: 2px;
+	padding: 1px;
+}
+

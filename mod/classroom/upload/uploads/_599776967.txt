@@ -1,0 +1,10 @@
+MySql
+Server:10.254.45.204
+learnuser
+luser
+
+Linux
+root
+Intelli123
+
+GRANT ALL PRIVILEGES ON *.* TO 'roy'@'%'

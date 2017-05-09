@@ -1,0 +1,40 @@
+<?php
+$string['course'] = 'Course';
+$string['trainingprogramname'] = 'Training';
+$string['location'] = 'Location';
+$string['time'] = 'Time';
+$string['allsessions'] = 'All sessions';
+$string['selectdaterange'] = 'Select date range';
+$string['locationandcourse'] = 'Select location | course';
+$string['duration'] = 'Duration';
+$string['venue'] = 'Venue';
+$string['room'] = 'Room';
+$string['Trainer'] = 'Trainer';
+$string['status'] = 'Status';
+$string['startdate'] = 'Course start date';
+$string['enddate'] = 'Course end date';
+$string['capacity'] = 'Capacity';
+$string['actions'] = 'Actions';
+$string['venue'] = 'Venue';
+$string['allfuturesessions'] = 'All future sessions';
+$string['apply'] = 'Apply';
+$string['daterange'] = 'Select Date range';
+$string['exportsessiondates'] = 'Export calender';
+$string['fixdates'] = 'Fix session dates';
+$string['formaltitle'] = 'Instructor Led Training(ILT)';
+$string['listsessiondates'] = 'List ILT Calender';
+$string['nbbookings'] = 'Bookings';
+$string['sessiondatesviewattendees'] = 'You can sign up for the following sessions:';
+$string['sessiondatesviewwaitattendees'] = 'You can sign up for the following waitlisted sessions:';
+$string['sessiondatestakeattendees'] = 'You can Take Attendence for the following sessions:';
+$string['sessiondatesviewattendeeszero'] = 'There are currently no sessions scheduled on the given date and location.';
+$string['sessiondatestable'] = 'List of session details along with number of bookings';
+$string['sessionlist'] = 'Session list';
+$string['signedupin'] = 'You are signed-up in the following sessions:';
+$string['signedupinzero'] = 'No sign-ups could be found in the given date range.';
+$string['timezone'] = 'Please make sure your respective time zone is set using Update profile before you sign up for any session. ';
+$string['upcomingsessions'] = 'Upcoming sessions';
+$string['viewexportsessions'] = 'View/export sessions';
+$string['xrecords'] = '$a records';
+
+?>

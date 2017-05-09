@@ -1,0 +1,313 @@
+<?php
+    if (empty($form->name)) {
+        $form->name = '';
+    }
+    if (empty($form->thirdparty)) {
+        $form->thirdparty = '';
+    }
+    if (empty($form->thirdpartywaitlist)) {
+        $form->thirdpartywaitlist = 0;
+    }
+	// Naga added for multiple signups 
+	 if (empty($form->multiplesession)) {
+        $form->multiplesession = 0;
+    }
+	//Naga completed
+    if (empty($form->confirmationsubject)) {
+        $form->confirmationsubject = empty($CFG->classroom_defaultconfirmationsubject) ? get_string('setting:defaultconfirmationsubjectdefault', 'classroom') : $CFG->classroom_defaultconfirmationsubject;
+    }
+    if (empty($form->confirmationinstrmngr)) {
+        $form->emailmanagerconfirmation = 0;
+        $form->confirmationinstrmngr = empty($CFG->classroom_defaultconfirmationinstrmngr) ? get_string('setting:defaultconfirmationinstrmngrdefault', 'classroom') : $CFG->classroom_defaultconfirmationinstrmngr;
+    } else {
+        $form->emailmanagerconfirmation = 1;
+    }
+    if (empty($form->confirmationmessage)) {
+        $form->confirmationmessage = empty($CFG->classroom_defaultconfirmationmessage) ? get_string('setting:defaultconfirmationmessagedefault', 'classroom') : $CFG->classroom_defaultconfirmationmessage;
+    }
+	if (empty($form->trainerconfirmationmessage)) {
+        $form->trainerconfirmationmessage = empty($CFG->classroom_defaultconfirmationmessage) ? get_string('setting:defaultconfirmationmessagetrainer', 'classroom') : $CFG->classroom_defaultconfirmationmessage;
+    }
+	if (empty($form->cancelprogram)) {
+        $form->cancelprogram = empty($CFG->classroom_defaultprogramcancelledsubject) ? get_string('setting:defaultprogramcancelledsubject', 'classroom') : $CFG->classroom_defaultprogramcancelledsubject;
+    }
+	if (empty($form->cancelprogrammessage)) {
+        $form->cancelprogrammessage = empty($CFG->classroom_programcancelconfirmationmessage) ? get_string('setting:defaultprogramcancellationmessage', 'classroom') : $CFG->classroom_programcancelconfirmationmessage;
+    }
+    if (empty($form->remindersubject)) {
+        $form->remindersubject = empty($CFG->classroom_defaultremindersubject) ? get_string('setting:defaultremindersubjectdefault', 'classroom') : $CFG->classroom_defaultremindersubject;
+    }
+    if (empty($form->reminderinstrmngr)) {
+        $form->emailmanagerreminder = 0;
+        $form->reminderinstrmngr = empty($CFG->classroom_defaultreminderinstrmngr) ? get_string('setting:defaultreminderinstrmngrdefault', 'classroom') : $CFG->classroom_defaultreminderinstrmngr;
+    } else {
+        $form->emailmanagerreminder = 1;
+    }
+    if (empty($form->remindermessage)) {
+        $form->remindermessage = empty($CFG->classroom_defaultremindermessage) ? get_string('setting:defaultremindermessagedefault', 'classroom') : $CFG->classroom_defaultremindermessage;
+    }
+    if (empty($form->cancellationsubject )) {
+        $form->cancellationsubject = empty($CFG->classroom_defaultcancellationsubject) ? get_string('setting:defaultcancellationsubjectdefault', 'classroom') : $CFG->classroom_defaultcancellationsubject;
+    }
+    if (empty($form->cancellationinstrmngr)) {
+        $form->emailmanagercancellation = 0;
+        $form->cancellationinstrmngr = empty($CFG->classroom_defaultcancellationinstrmngr) ? get_string('setting:defaultcancellationinstrmngrdefault', 'classroom') : $CFG->classroom_defaultcancellationinstrmngr;
+
+    } else {
+        $form->emailmanagercancellation = 1;
+    }
+    if (empty($form->cancellationmessage)) {
+        $form->cancellationmessage = empty($CFG->classroom_defaultcancellationmessage) ? get_string('setting:defaultcancellationmessagedefault', 'classroom') : $CFG->classroom_defaultcancellationmessage;
+    }
+	if (empty ($form->absenteessubject)){
+	    $form->absenteessubject = empty($CFG->classroom_defaultabsenteessubject) ? get_string('setting:defaultabsenteessubjectdefault', 'classroom') : $CFG->classroom_defaultabsenteessubject;
+	}	
+    if (empty($form->absenteesmessage)) {
+		$form->emailabsentees = 0;
+        $form->absenteesmessage = empty($CFG->classroom_defaultabsenteesmessage) ? get_string('setting:defaultabsenteesmessage', 'classroom') : $CFG->classroom_defaultabsenteesmessage;
+    }
+	else{
+		$form->emailabsentees = 1;
+	}
+	if (empty($form->absenteesinstrmngr)) {
+        $form->emailmanagerabsentees = 0;
+        $form->absenteesinstrmngr = empty($CFG->classroom_defaultabsenteesinstrmngr) ? get_string('setting:defaultabsenteesinstrmngrdefault', 'classroom') : $CFG->classroom_defaultabsenteesinstrmngr;
+
+    } else {
+        $form->emailmanagerabsentees = 1;
+	}
+    if (empty($form->waitlistedsubject)) {
+        $form->waitlistedsubject = empty($CFG->classroom_defaultwaitlistedsubject) ? get_string('setting:defaultwaitlistedsubjectdefault', 'classroom') : $CFG->classroom_defaultwaitlistedsubject;
+    }
+    if (empty($form->waitlistedmessage)) {
+        $form->waitlistedmessage = empty($CFG->classroom_defaultwaitlistedmessage) ? get_string('setting:defaultwaitlistedmessagedefault', 'classroom') : $CFG->classroom_defaultwaitlistedmessage;
+    }
+    if (empty($form->display)) {
+        $form->display = 6;
+    }
+    if (empty($form->reminderperiod)) {
+        $form->reminderperiod = 2;
+    }
+?>
+
+<script type="text/javascript">
+//<![CDATA[
+    var emailmanagerconfirmationitems = ['confirmationinstrmngr'];
+    var emailmanagerreminderitems = ['reminderinstrmngr'];
+    var emailmanagercancellationitems = ['cancellationinstrmngr'];
+	//var emailmanagersabsenteesitems = ['absenteesinstrmngr'];
+	var emailabsenteesitems = ['absenteesmessage'];
+//]]>
+</script>
+
+<form name="form" method="post" action="mod.php">
+<center>
+<table cellpadding="5">
+<tr valign="top">
+    <td align="right"><b><?php print_string('classroomname', 'classroom') ?>:</b></td>
+    <td align="left"><input type="text" name="name" size="40" value="<?php p($form->name) ?>" alt="<?php print_string('classroomname', 'classroom') ?>" /></td>
+</tr>
+<tr valign="top">
+    <td align="right"><b><?php print_string('thirdpartyemailaddress', 'classroom') ?>:</b></td>
+    <td align="left"><input type="text" name="thirdparty" size="40" value="<?php p($form->thirdparty) ?>" alt="<?php print_string('thirdpartyemailaddress', 'classroom') ?>" /> <?php helpbutton('thirdpartyemailaddress', get_string('thirdpartyemailaddress', 'classroom'), 'classroom'); ?></td>
+</tr>
+<tr valign="top">
+    <td align="right"><b><?php print_string('thirdpartywaitlist', 'classroom') ?>:</b></td>
+    <td align="left"><input type="checkbox" name="thirdpartywaitlist" value="1" <?php print($form->thirdpartywaitlist ? 'checked="checked"' : ''); ?> alt="<?php print_string('thirdpartywaitlist', 'classroom'); ?>" /> <?php helpbutton('thirdpartywaitlist', get_string('thirdpartywaitlist', 'classroom'), 'classroom'); ?></td>
+</tr>
+
+<!--  Naga added for multiple signups -->
+<tr valign="top">
+    <td align="right"><b><?php print_string('multiplesession', 'classroom') ?>:</b></td>
+    <td align="left"><input type="checkbox" name="multiplesession" value="1" <?php print($form->multiplesession ? 'checked="checked"' : ''); ?> alt="<?php print_string('multiplesession', 'classroom'); ?>" /> <?php helpbutton('multiplesession', get_string('multiplesession', 'classroom'), 'classroom'); ?></td>
+</tr>
+
+<!-- Completed  Naga added for multiple signups -->
+<tr valign="top">
+    <td align="right"><b><?php print_string('sessionsoncoursepage', 'classroom') ?>:</b></td>
+    <td align="left"><?php
+    for($i=0; $i<=18; $i=$i+2) $choices[$i] = $i;
+    choose_from_menu($choices, 'display', $form->display, '');
+    ?> <?php helpbutton('sessionsoncoursepage', get_string('sessionsoncoursepage', 'classroom'), 'classroom'); ?>
+    </td>
+</tr>
+<tr valign="top" >
+    <td align="right"><p><b><?php print_string('introductiontext', 'classroom') ?>:</b></p>
+    </td>
+    <td align="left"><textarea name="description" rows="15" cols="70" alt="<?php print_string('introductiontext', 'classroom') ?>"><?php p($form->description) ?></textarea></td>
+</tr>
+<tr valign="top">
+    <td align="right"><h3><?php print_string('confirmationmessage', 'classroom') ?> <?php helpbutton('confirmationmessage', get_string('confirmationmessage', 'classroom'), 'classroom'); ?></h3></td>
+    <td></td>
+</tr>
+<tr valign="top">
+    <td align="right"><b><?php print_string('email:subject', 'classroom') ?>:</b></td>
+    <td align="left"><input type="text" name="confirmationsubject" size="55" value="<?php p($form->confirmationsubject) ?>" alt="<?php print_string('email:subject', 'classroom') ?>" /></td>
+</tr>
+<tr valign="top">
+    <td align="right"><p><b><?php print_string('email:participantmessage', 'classroom') ?>:</b></p>
+    </td>
+    <td align="left"><textarea name="confirmationmessage" rows="15" cols="70" alt="<?php print_string('email:participantmessage', 'classroom') ?>"><?php p($form->confirmationmessage) ?></textarea></td>
+</tr>
+<tr valign="top">
+    <td align="right"><p><b><?php print_string('email:trainermessage', 'classroom') ?>:</b></p>
+    </td>
+    <td align="left"><textarea name="trainerconfirmationmessage" rows="15" cols="70" alt="<?php print_string('email:trainermessage', 'classroom') ?>"><?php p($form->trainerconfirmationmessage) ?></textarea></td>
+</tr>
+<tr valign="top">
+    <td align="right"><b><?php print_string('email:subject', 'classroom') ?>:</b></td>
+    <td align="left"><input type="text" name="cancelprogram" size="55" value="<?php p($form->cancelprogram) ?>" alt="<?php print_string('email:subject', 'classroom') ?>" /></td>
+</tr>
+<tr valign="top">
+    <td align="right"><p><b><?php print_string('email:cancelmessage', 'classroom') ?>:</b></p>
+    </td>
+    <td align="left"><textarea name="cancelprogrammessage" rows="15" cols="70" alt="<?php print_string('email:cancelmessage', 'classroom') ?>"><?php p($form->cancelprogrammessage) ?></textarea></td>
+</tr>
+
+
+
+
+<tr valign="top">
+    <td align="right"><b><?php print_string('emailmanager', 'classroom') ?>:</b></td>
+    <td align="left"><input name="emailmanagerconfirmation" type="checkbox" value="1" onclick="return lockoptions('form','emailmanagerconfirmation', emailmanagerconfirmationitems);" <?php if ($form->emailmanagerconfirmation) echo 'checked="checked"' ?> alt="<?php print_string('emailmanager', 'classroom') ?>" /></td>
+</tr>
+<tr valign="top">
+    <td align="right"><b><?php print_string('email:instrmngr', 'classroom') ?>:</b></td>
+    <td align="left"><textarea name="confirmationinstrmngr" rows="4" cols="70" alt="<?php print_string('email:instrmngr', 'classroom') ?>"><?php p($form->confirmationinstrmngr) ?></textarea></td>
+</tr>
+<tr valign="top">
+    <td align="right"><h3><?php print_string('remindermessage', 'classroom') ?> <?php helpbutton('remindermessage', get_string('remindermessage', 'classroom'), 'classroom'); ?></h3></td>
+    <td></td>
+</tr>
+
+
+<tr valign="top">
+    <td align="right"><b><?php print_string('email:subject', 'classroom') ?>:</b></td>
+    <td align="left"><input type="text" name="remindersubject" size="55" value="<?php p($form->remindersubject) ?>" alt="<?php print_string('email:subject', 'classroom') ?>" /></td>
+</tr>
+<tr valign="top">
+    <td align="right"><p><b><?php print_string('email:message', 'classroom') ?>:</b></p>
+    </td>
+    <td align="left"><textarea name="remindermessage" rows="15" cols="70" alt="<?php print_string('email:message', 'classroom') ?>"><?php p($form->remindermessage) ?></textarea></td>
+</tr>
+
+
+
+<tr valign="top">
+    <td align="right"><b><?php print_string('emailmanager', 'classroom') ?>:</b></td>
+    <td align="left"><input name="emailmanagerreminder" type="checkbox" value="1" onclick="return lockoptions('form','emailmanagerreminder', emailmanagerreminderitems);" <?php if ($form->emailmanagerreminder) echo 'checked="checked"' ?> alt="<?php print_string('emailmanager', 'classroom') ?>" /></td>
+</tr>
+<tr valign="top">
+    <td align="right"><b><?php print_string('email:instrmngr', 'classroom') ?>:</b></td>
+    <td align="left"><textarea name="reminderinstrmngr" rows="4" cols="70" alt="<?php print_string('email:instrmngr', 'classroom') ?>"><?php p($form->reminderinstrmngr) ?></textarea></td>
+</tr>
+<tr valign="top">
+    <td align="right"><b><?php print_string('reminderperiod', 'classroom') ?>:</b></td>
+    <td align="left"><?php
+    unset($choices);
+    for ($i=1; $i<=10; $i++) $choices[$i] = "$i";
+    choose_from_menu ($choices, 'reminderperiod', $form->reminderperiod, '');
+    ?>  <?php helpbutton('reminderperiod', get_string('reminderperiod', 'classroom'), 'classroom'); ?></td>
+</tr>
+<tr valign="top">
+    <td align="right"><h3><?php print_string('waitlistedmessage', 'classroom') ?> <?php helpbutton('waitlistedmessage', get_string('waitlistedmessage', 'classroom'), 'classroom'); ?></h3></td>
+    <td></td>
+</tr>
+
+
+<tr valign="top">
+    <td align="right"><b><?php print_string('email:subject', 'classroom') ?>:</b></td>
+    <td align="left"><input type="text" name="waitlistedsubject" size="55" value="<?php p($form->waitlistedsubject) ?>" alt="<?php print_string('email:subject', 'classroom') ?>" /></td>
+</tr>
+<tr valign="top">
+    <td align="right"><p><b><?php print_string('email:message', 'classroom') ?>:</b></p>
+    </td>
+    <td align="left"><textarea name="waitlistedmessage" rows="15" cols="70" alt="<?php print_string('email:message', 'classroom') ?>"><?php p($form->waitlistedmessage) ?></textarea></td>
+</tr>
+<tr valign="top">
+    <td align="right"><h3><?php print_string('cancellationmessage', 'classroom') ?> <?php helpbutton('cancellationmessage', get_string('cancellationmessage', 'classroom'), 'classroom'); ?></h3></td>
+    <td></td>
+</tr>
+
+
+
+<tr valign="top">
+    <td align="right"><b><?php print_string('email:subject', 'classroom') ?>:</b></td>
+    <td align="left"><input type="text" name="cancellationsubject" size="55" value="<?php p($form->cancellationsubject) ?>" alt="<?php print_string('email:subject', 'classroom') ?>" /></td>
+</tr>
+<tr valign="top">
+    <td align="right"><p><b><?php print_string('email:message', 'classroom') ?>:</b></p>
+    </td>
+    <td align="left"><textarea name="cancellationmessage" rows="15" cols="70" alt="<?php print_string('email:message', 'classroom') ?>"><?php p($form->cancellationmessage) ?></textarea></td>
+</tr>
+
+
+-----------------------------------------
+<tr valign="top">
+    <td align="right"><b><?php print_string('emailmanager', 'classroom') ?>:</b></td>
+    <td align="left"><input name="emailmanagercancellation" type="checkbox" value="1" onclick="return lockoptions('form','emailmanagercancellation', emailmanagercancellationitems);" <?php if ($form->emailmanagercancellation) echo 'checked="checked"' ?> alt="<?php print_string('emailmanager', 'classroom') ?>" /></td>
+</tr>
+<tr valign="top">
+    <td align="right"><b><?php print_string('email:instrmngr', 'classroom') ?>:</b></td>
+    <td align="left"><textarea name="cancellationinstrmngr" rows="4" cols="70" alt="<?php print_string('email:instrmngr', 'classroom') ?>"><?php p($form->cancellationinstrmngr) ?></textarea></td>
+</tr>
+
+<tr valign="top">
+    <td align="right"><h3><?php print_string('absenteesmessage', 'classroom') ?> <?php helpbutton('absenteesmessage', get_string('absenteesmessage', 'classroom'), 'classroom'); ?></h3></td>
+    <td></td>
+</tr>
+
+---------------------------
+
+<tr valign="top">
+    <td align="right"><b><?php print_string('email:subject', 'classroom') ?>:</b></td>
+    <td align="left"><input type="text" name="absenteessubject" size="55" value="<?php p($form->absenteessubject) ?>" alt="<?php print_string('email:subject', 'classroom') ?>" /></td>
+</tr>
+<tr valign="top">
+    <td align="right"><p><b><?php print_string('email:message', 'classroom') ?>:</b></p>
+    </td>
+    <td align="left"><textarea name="absenteesmessage" rows="15" cols="70" alt="<?php print_string('email:message', 'classroom') ?>"><?php p($form->absenteesmessage) ?></textarea></td>
+</tr>
+<tr valign="top">
+    <td align="right"><b><?php print_string('emailabsentees', 'classroom') ?>:</b></td>
+    <td align="left"><input name="emailabsentees" type="checkbox" value="1" onclick="return lockoptions('form','emailabsentees', emailabsenteesitems);" <?php if ($form->emailabsentees) echo 'checked="checked"' ?> alt="<?php print_string('emailabsentees', 'classroom') ?>" /></td>
+</tr>
+
+<!--
+<tr valign="top">
+    <td align="right"><b><?php// print_string('emailmanager', 'classroom') ?>:</b></td>
+    <td align="left"><input name="emailmanagerabsentees" type="checkbox" value="1" onclick="return lockoptions('form','emailmanagerabsentees', emailmanagersabsenteesitems);" <?php// if ($form->emailmanagerabsentees) echo 'checked="checked"' ?> alt="<?php// print_string('emailmanager', 'classroom') ?>" /></td>
+</tr>
+<tr valign="top">
+    <td align="right"><b><?php //print_string('email:instrmngr', 'classroom') ?>:</b></td>
+    <td align="left"><textarea name="absenteesinstrmngr" rows="4" cols="70" alt="<?php //print_string('email:instrmngr', 'classroom') ?>"><?php //print_string($form->absenteesinstrmngr) ?></textarea></td>
+</tr>
+-->
+</table>
+</center>
+
+<br />
+<center>
+<input type="hidden" name="course" value="<?php p($form->course) ?>" />
+<input type="hidden" name="coursemodule" value="<?php p($form->coursemodule) ?>" />
+<input type="hidden" name="section" value="<?php p($form->section) ?>" />
+<input type="hidden" name="module" value="<?php p($form->module) ?>" />
+<input type="hidden" name="modulename" value="<?php p($form->modulename) ?>" />
+<input type="hidden" name="instance" value="<?php p($form->instance) ?>" />
+<input type="hidden" name="mode" value="<?php p($form->mode) ?>" />
+<input type="hidden" name="sesskey" value="<?php p($form->sesskey) ?>" />
+<input type="submit" value="<?php print_string('savechanges') ?>" alt="<?php print_string('savechanges') ?>" />
+<input type="submit" name="cancel" value="<?php print_string('cancel') ?>" alt="<?php print_string('cancel') ?>" />
+</center>
+
+</form>
+
+<script type="text/javascript">
+<?php
+    if (!$form->emailmanagerconfirmation) echo "lockoptions('form','emailmanagerconfirmation', emailmanagerconfirmationitems);";
+    if (!$form->emailmanagerreminder) echo "lockoptions('form','emailmanagerreminder', emailmanagerreminderitems);";
+    if (!$form->emailmanagercancellation) echo "lockoptions('form','emailmanagercancellation', emailmanagercancellationitems);";
+	//if (!$form->emailmanagerabsentees) echo "lockoptions('form','emailmanagerabsentees', emailmanagersabsenteesitems);";
+	if (!$form->emailabsentees) echo "lockoptions('form','emailabsentees', emailabsenteesitems);";
+?>
+</script>

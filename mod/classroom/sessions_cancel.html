@@ -1,0 +1,85 @@
+<form name="form" method="post" action="sessions.php?f=<?php echo $classroom->id; if($ca) echo "&amp;ca=1"; ?>">
+<input type="hidden" name="id" value="<?php echo $id; ?>" />
+<input type="hidden" name="sesskey" value="<?php echo $USER->sesskey; ?>" />
+<input type="hidden" name="f" value="<?php echo $f; ?>" />
+<input type="hidden" name="s" value="<?php echo $s; ?>" />
+<input type="hidden" name="c" value="<?php echo $c; ?>" />
+<input type="hidden" name="ca" value="<?php echo $ca; ?>" />
+<input type="hidden" name="location" value="<?php echo $form->location; ?>" />
+<input type="hidden" name="venue" value="<?php echo $form->venue; ?>" />
+<input type="hidden" name="room" value="<?php echo $form->room; ?>" />
+<input type="hidden" name="sessioncategory" value="<?php echo $form->sessioncategory; ?>" />
+<input type="hidden" name="cancelreason" value="<?php echo $form->cancelreason; ?>" />
+
+
+<input type="hidden" name="action" value="1" />
+<table cellpadding="5">
+<tr valign="top">
+    <td align="right" width="300"><b><?php print_string('location', 'classroom') ?>:</b></td>
+    <td width="300"><?php echo $form->location; ?></td> </tr>
+<tr valign="top">
+    <td align="right" width="300"><b><?php print_string('venue', 'classroom') ?>:</b></td>
+    <td width="300"><?php echo $form->venue; ?></td>
+</tr>
+<tr valign="top">
+    <td align="right" width="300"><b><?php print_string('room', 'classroom') ?>:</b></td>
+    <td width="300"><?php echo $form->room; ?></td>
+</tr>
+<?php
+if ($form->datetimeknown) {
+?>
+<tr valign="top">
+    <td align="right" width="300"><b><?php print_string('sessiondatetime', 'classroom') ?>:</b></td>
+    <td width="300" align="left"><table border="0">
+<?php
+    for ($i=0; $i < $nbdays; $i++) {
+?>
+        <tr>
+        <td align="right"><?php echo $sessiondate[$i]; ?>,</td>
+        <td align="left"><?php echo $datetimestart[$i]; ?> - <?php echo $datetimefinish[$i]; ?></td>
+        </tr>
+<?php
+    }
+?>
+    </table></td>
+</tr>
+<?php
+} else {
+?>
+<tr valign="top">
+    <td align="right" width="300"><b><?php print_string('sessiondatetime', 'classroom') ?>:</b></td>
+    <td width="300"><?php print_string('wait-listed', 'classroom') ?></td>
+</tr>
+<?php
+}
+?>
+<tr valign="top">
+    <td align="right" width="300"><b><?php print_string('sessioncategory', 'classroom') ?>:</b></td>     <td width="300"><?php echo $form->sessioncategory; ?></td>
+</tr>
+<tr valign="top">
+    <td align="right" width="300"><b><?php print_string('capacity', 'classroom') ?>:</b></td>     <td width="300"><?php echo $form->capacity; ?></td>
+</tr>
+<tr valign="top">
+    <td align="right" width="300"><b><?php print_string('details', 'classroom') ?>:</b></td>
+    <td width="300"><?php echo $form->details; ?></td>
+</tr>
+<tr valign="top">
+    <td align="right"><b><?php print_string('cancelreasonlabel', 'classroom') ?>:</b></td>
+	
+    <td>
+	<?php 
+$choices = array("Inadequate Nominations" =>'Inadequate Nominations',"Dropouts"=>'Dropouts',"Trainer Unavailability"=>'Trainer Unavailability',"Training Room Unavailability"=>'Training Room Unavailability',"Training Infrastructure unavailability"=>'Training Infrastructure unavailability',"Others"=>'Others');
+if (!empty($choices)) {
+    choose_from_menu($choices, 'cancelreason', $form->cancelreason, '');
+	}
+?>
+	</td>
+</tr>
+<tr>
+    <td colspan="2" align="center">
+        <input type="submit" value="<?php print_string('cancelsession', 'classroom') ?>" />
+        <input type="submit" name="cancel" value="<?php print_string('cancel') ?>" />
+    </td>
+</tr>
+</table>
+</form>

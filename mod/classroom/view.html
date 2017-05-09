@@ -1,0 +1,26 @@
+<form method="post" action="view.php?f=<?php echo $classroom->id; ?>">
+<input type="hidden" name="sesskey" value="<?php echo $USER->sesskey; ?>" />
+<div style="text-align: center">
+Show by location:
+<?php 
+$choices = classroom_get_locations($classroom->id);
+if (!empty($choices)) {
+    choose_from_menu($choices, 'location', $location, '');
+	$viewchoice=array();
+	$viewchoice[0]='Current Sessions';
+	$viewchoice[1]='Cancelled Sessions';
+	$viewchoice[2]='Completed Sessions';
+
+echo 'Status: ';
+choose_from_menu($viewchoice, 'view', $view, '');
+?>
+<input type="submit" value="Search" />
+<?php
+}
+?>
+
+
+</div>
+
+<hr/>
+</form>

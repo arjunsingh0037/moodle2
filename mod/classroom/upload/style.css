@@ -1,0 +1,250 @@
+#theForm{
+	margin:0 auto;
+	padding: 20px;
+	background: rgba(238, 238, 238, 0.78);
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #E7E7E7;
+	text-align:right;
+}
+#theFormInner{
+	margin:0 auto;
+	font-family: Arial, Helvetica, sans-serif;
+	padding: 20px;
+	background: rgb(230, 230, 230);
+	text-align:right;
+}
+#theFormBlank{
+	background: rgba(238, 238, 238, 0.40);
+
+	border:1px solid #E7E7E7;
+}
+#theForm label{
+	display:block;
+	text-align:right;
+	width:140px;
+	float:left;
+}
+
+#theForm .small{
+	color:#666666;
+	display:block;
+	font-size:11px;
+	font-weight:normal;
+	text-align:right;
+	width:140px;
+}
+
+#theForm input{
+	float:left;
+	color:#330099;
+	font-size:12px;
+	padding:4px 2px;
+	border:1px solid #aacfe4;
+	width:340px;
+	margin:2px 0 20px 10px;
+}
+
+#theForm input.small{
+	float:left;
+	color:#FF6600;
+	font-size:12px;
+	padding:4px 2px;
+	border:1px solid #aacfe4;
+	width:100px;
+
+}
+
+#theForm select{
+	float:left;
+	color:#330099;
+	font-size:12px;
+	padding:4px 2px;
+	border:1px solid #aacfe4;
+	width:340px;
+	margin:2px 0 20px 10px;
+}
+#theForm textarea{
+	float:left;
+	color:#330099;
+	font-size:12px;
+	padding:4px 2px;
+	border:solid 1px #aacfe4;
+	width:340px;
+	margin:2px 0 20px 10px;
+	height: 100px;
+}
+
+
+#theFormInner label{
+	display:block;
+	font-size : 13.4px;
+	text-align:right;
+	width:140px;
+	float:left;
+}
+
+#theFormInner .small{
+	color:#666666;
+	display:block;
+	font-size:11px;
+	font-weight:normal;
+	text-align:right;
+	width:140px;
+}
+
+#theFormInner input{
+	float:left;
+	color:#0099FF;
+	font-size:12px;
+	padding:4px 2px;
+	border:1px solid #aacfe4;
+	width:340px;
+	margin:2px 0 20px 10px;
+}
+
+#theFormInner input.small{
+	float:left;
+	color:#0099FF;
+	font-size:12px;
+	padding:4px 2px;
+	border:1px solid #aacfe4;
+	width:100px;
+
+}
+
+#theFormInner select{
+	float:left;
+	font-size:12px;
+	color:#0099FF;
+	padding:4px 2px;
+	border:1px solid #aacfe4;
+	width:340px;
+	margin:2px 0 20px 10px;
+}
+#theFormInner textarea{
+	float:left;
+	font-size:12px;
+	padding:4px 2px;
+	border:solid 1px #aacfe4;
+	width:340px;
+	margin:2px 0 20px 10px;
+	height: 100px;
+}
+
+
+.red-button {
+	-moz-box-shadow:inset 0px 1px 0px 0px #f29c93;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #f29c93;
+	box-shadow:inset 0px 1px 0px 0px #f29c93;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #fe1a00), color-stop(1, #ce0100) );
+	background:-moz-linear-gradient( center top, #fe1a00 5%, #ce0100 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#fe1a00', endColorstr='#ce0100');
+	background-color:#fe1a00;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #d83526;
+	display:inline-block;
+	color:#ffffff;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:1px 1px 0px #b23e35;
+	font: bold 13px arial;
+}.red-button:hover {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ce0100), color-stop(1, #fe1a00) );
+	background:-moz-linear-gradient( center top, #ce0100 5%, #fe1a00 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ce0100', endColorstr='#fe1a00');
+	background-color:#ce0100;
+}.red-button:active {
+	position:relative;
+	top:1px;
+}
+
+.green-button {
+	-moz-box-shadow:inset 0px 1px 0px 0px #f29c93;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #f29c93;
+	box-shadow:inset 0px 1px 0px 0px #f29c93;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #B0F78D), color-stop(1, #13AD13) );
+	background:-moz-linear-gradient( center top, #B0F78D 5%, #13AD13 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#B0F78D', endColorstr='#13AD13');
+	background-color:#B0F78D;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #2CD438;
+	display:inline-block;
+	color:#ffffff;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:1px 1px 0px #b23e35;
+	font: bold 13px arial;
+}.green-button:hover {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #66D130), color-stop(1, #7EE34B) );
+	background:-moz-linear-gradient( center top, #13AD13 5%, #7EE34B 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#13AD13', endColorstr='#66D130');
+	background-color:#66D130;
+}.green-button:active {
+	position:relative;
+	top:1px;
+}
+
+ 
+ .upload-button {
+	-moz-box-shadow:inset 0px 1px 0px 0px #f29c93;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #f29c93;
+	box-shadow:inset 0px 1px 0px 0px #f29c93;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #F9FCA2), color-stop(1, #D2D667) );
+	background:-moz-linear-gradient( center top, #F9FCA2 5%, #D2D667 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#F9FCA2', endColorstr='#D2D667');
+	background-color:#F9FCA2;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #DDE080;
+	display:inline-block;
+	color:#000000;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:1px 1px 0px #b23e35;
+	font: bold 13px arial;
+}.upload-button:hover {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #F9FCA2), color-stop(1, #7EE34B) );
+	background:-moz-linear-gradient( center top, #D2D667 5%, #7EE34B 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#D2D667', endColorstr='#F9FCA2');
+	background-color:#F9FCA2;
+}.upload-button:active {
+	position:relative;
+	top:1px;
+}
+ 
+ 
+a.tooltip {outline:none; }
+a.tooltip strong {line-height:30px;}
+a.tooltip:hover {text-decoration:none;} 
+a.tooltip span {
+	padding: 10px;
+    z-index:10;display:none; padding:14px 20px;
+    margin-top:-30px; margin-left:28px;
+    width:240px; line-height:16px;
+}
+a.tooltip:hover span{
+	padding: 10px;
+    display:inline; position:absolute; color:#111;
+    border:1px solid #DCA; background:#fffAF0;}
+.callout {z-index:20;position:absolute;top:30px;border:0;left:-12px;}
+    
+/*CSS3 extras*/
+a.tooltip span
+{
+    border-radius:4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+        
+    -moz-box-shadow: 5px 5px 8px #CCC;
+    -webkit-box-shadow: 5px 5px 8px #CCC;
+    box-shadow: 5px 5px 8px #CCC;
+}
+
+#output{text-align:left;}
